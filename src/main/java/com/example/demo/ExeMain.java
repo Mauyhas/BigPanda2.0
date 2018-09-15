@@ -3,21 +3,15 @@ package com.example.demo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.ExecutionException;
 
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-
-import kafka.ConsumerCreator;
-import kafka.ProducerCreator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 @SpringBootApplication
 public class ExeMain implements CommandLineRunner{
 	
@@ -32,13 +26,13 @@ public class ExeMain implements CommandLineRunner{
 		//Producer<Long, String> producer = ProducerCreator.createProducer();
 		// 1-run exe
 		ApplicationContext  applicationContext = SpringApplication.run(ExeMain.class, args);
-		
 	}
 
 	@Autowired
 	private Validatator validatatorService;
 	
-	@Autowired CacheService cacheService;
+	@Autowired 
+	private CacheService cacheService;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -67,9 +61,9 @@ public class ExeMain implements CommandLineRunner{
 						System.out.println("unvalid input: " + inputString);
 					}
 				}catch(IOException e) {
-					System.out.println(e.toString());
+					e.printStackTrace();
 				}catch (Exception e) {
-					System.out.println(e.toString());
+					e.printStackTrace();
 					
 				}
 				  //putMsgInQueue(inputString, producer);

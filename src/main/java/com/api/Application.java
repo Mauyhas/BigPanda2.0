@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.api;
 
 import java.util.concurrent.ExecutionException;
 
@@ -7,6 +7,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.example.demo.IKafkaConstants;
 
 import kafka.ProducerCreator;
 

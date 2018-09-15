@@ -2,21 +2,23 @@ package com.example.demo;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kafka.ProducerCreator;
 
-
+@Component
 public class CacheService {
 	
 	private final String EVENT_KEY_NAME = "event_type";
@@ -28,11 +30,14 @@ public class CacheService {
 	ObjectMapper mapper;
 	Producer<Long, String> producer; 
 	
-	public CacheService() {
-		m_dataMap = new HashMap<String, Integer>();
+	@PostConstruct
+	public void init() {
+	    System.out.println("@PostConstruct");
+	    m_dataMap = new HashMap<String, Integer>();
 		mapper = springMvcJacksonConverter.getObjectMapper();
 		producer = ProducerCreator.createProducer();
 	}
+	
 	
 	public void storeDataInCacheQueue(String inputString) throws IOException {
 		JsonNode actualObj = mapper.readTree(inputString);
