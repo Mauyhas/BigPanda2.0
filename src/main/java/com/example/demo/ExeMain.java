@@ -77,6 +77,7 @@ public class ExeMain implements CommandLineRunner{
 				//log them for now....
 			}
 		} catch (Exception e) {
+			//refactoring
 			System.out.println(e.getMessage());
 		}
 	}
